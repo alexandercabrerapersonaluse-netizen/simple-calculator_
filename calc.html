@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+
+    <head>
+
+        <title>My Simple Calculator</title>
+
+        <style>
+
+            :root {
+                background-color: #ffffff;
+                --text-color: #000000;
+                --box-border: #dddddd;
+                --btn-bg: #f0f0f0;
+            }
+
+            [data-theme="dark"] {
+                background-color: #1a1a1a;
+                --text-color: #ffffff;
+                --box-border: #444444;
+                --btn-bg: #333333;
+            }
+
+            body {
+                background-color: var(--bg-color);
+                color: var(--text-color);
+                font-family: sans-serif;
+                margin: 0;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                height: 100vh;
+                transition: 0.3s; 
+            }
+
+            .top-nav {
+                position: absolute;
+                top: 20px;
+                width: 90%;
+                display: flex;
+                justify-content: space-between;
+            }
+
+            .calc-container {
+                text-align: center;
+                padding: 20px;
+                border: 1px solid var(--box-border);
+                border-radius: 10px;
+            }
+
+            input {
+                padding: 8px;
+                margin: 5px;
+                width: 130px;
+                background: var(--bg-color);
+                color: var(--text-color);
+                border: 1px solid var(--box-border);
+            }
+
+            button {
+                padding: 8px 12px;
+                margin: 4px;
+                cursor: pointer;
+                background-color: var(--btn-bg);
+                color: var(--text-color);
+                border: 1px solid var(--box-border);
+                border-radius: 4px;
+            }
+
+            button:hover {
+                opacity: 0.8;
+            }
+
+        </style>
+
+    </head>
+
+    <body>
+
+        <div class="top-nav">
+            <button onclick="showAlert()">Alert Button</button>
+            <button onclick="toggleDarkMode()">Toggle Dark Mode</button>
+        </div>
+
+        <div class="calc-container">
+            <h2>Simple Calculator</h2>
+            
+            <input type="number" id="n1" placeholder="First number">
+            <input type="number" id="n2" placeholder="Second number">
+            
+            <br>
+            
+            <button onclick="compute('+')">Add (+)</button>
+            <button onclick="compute('-')">Subtract (-)</button>
+            <button onclick="compute('*')">Multiply (x)</button>
+            <button onclick="compute('/')">Divide (/)</button>
+            <button onclick="clearAll()">Clear (C)</button>
+
+            <h3 id="result">Result: 0</h3>
+        </div>
+
+        <script>
+            
+            function toggleDarkMode() {
+                const body = document.body;
+                // Check current theme and flip it
+                if (body.getAttribute('data-theme') === 'dark') {
+                    body.removeAttribute('data-theme');
+                } else {
+                    body.setAttribute('data-theme', 'dark');
+                }
+            }
+
+            function showAlert() {
+                alert("Hello World!");
+            }
+
+            function compute(op) {
+                const val1 = parseFloat(document.getElementById('n1').value);
+                const val2 = parseFloat(document.getElementById('n2').value);
+                const output = document.getElementById('result');
+
+                if (isNaN(val1) || isNaN(val2)) {
+                    alert("Please fill in both numbers.");
+                    return;
+                }
+
+                let res;
+                switch(op) {
+                    case '+': res = val1 + val2; break;
+                    case '-': res = val1 - val2; break;
+                    case '*': res = val1 * val2; break;
+                    case '/': res = val2 !== 0 ? val1 / val2 : "Infinity"; break;
+                }
+                output.innerText = "Result: " + res;
+            }
+
+            function clearAll() {
+                document.getElementById('n1').value = "";
+                document.getElementById('n2').value = "";
+                document.getElementById('result').innerText = "Result: 0";
+            }
+        </script>
+
+    </body>
+</html>
